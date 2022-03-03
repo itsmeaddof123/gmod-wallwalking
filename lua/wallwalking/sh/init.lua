@@ -1,6 +1,6 @@
 --[[Wallwalkikng by Addi
 
-    THIS IS THE MOST CURSED THING I HAVE EVER CREATED
+    This is pretty cursed, not gonna lie, but it works way better than I ever expected it to.
 
     Hi, thanks for checking out my addon. This was inspired by Mee's Seamless portals
     which uses Player:SetHull() to allow players to enter portals without colliding with
