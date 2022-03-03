@@ -5,10 +5,10 @@ After having a discussion with Mee12345 (https://github.com/Mee12345/GMod-Seamle
 I expected it to be very scuffed and buggy, but it actually turned out pretty well. It's not flawless, but still effective and a lot of fun to play around with.
 
 ## **Addon Usage:**
- - Enabled or disable wallwalking with the server ConVar **wallwalking_enabled** (set to 1 to enable or 0 to disable)
+ - Enable or disable wallwalking with the server ConVar **wallwalking_enabled** (set to 1 to enable or 0 to disable)
 
  ## **Customization:**
  Other ConVars:
   - **wallwalking_max** - How far can you wallwalk?
   - **wallwalking_min** - How close should you be to an obstruction before wallwalking?
-  - **wallwalking_gap** - How much of a gap should there be between potential hulls
+  - **wallwalking_gap** - How much of a gap should there be between potential hulls?
