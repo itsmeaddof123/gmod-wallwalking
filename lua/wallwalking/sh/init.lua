@@ -20,6 +20,7 @@ local wallwalking_enabled = CreateConVar("wallwalking_enabled", 1, {FCVAR_ARCHIV
 local wallwalking_max = CreateConVar("wallwalking_max", 4, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "How far can you wallwalk?", 1) -- Cost grows exponentially, I don't recommend setting this above 4 
 local wallwalking_min = CreateConVar("wallwalking_min", 0.5, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "How close should you be to an obstruction before wallwalking?", 0.1, 1) -- 0.5 Seems good, I don't recommend changing this
 local wallwalking_gap = CreateConVar("wallwalking_gap", 1.25, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "How much of a gap should there be between potential hulls?", 0.5) -- 1.25 seems good, I don't recommend putting this below 1 or above 2
+local wallwalking_credits = CreateConVar("wallwalking_credits", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Should addon credits be printed once in client console? (Disabled by default)", 0, 1) -- If enabled, players can see where the addon comes from in console :)
 
 -- Utility function to check if the player will fit in a given spot
 local function playerwillfit(ply, pos)
@@ -298,4 +299,27 @@ if CLIENT then
     else
         hook.Remove("PreDrawOpaqueRenderables", "test")
     end
+
+    -- Prints addon credits once to player, if enabled (disabled by default)
+    if wallwalking_credits:GetBool() then
+        hook.Add("Initialize", "wallwalking_credits", function()
+            print("Player Scaling is an addon created by Addi Boi - https://github.com/itsmeaddof123/gmod-player-scaling/")
+            hook.Remove("Initialize", "wallwalking_credits")
+        end)
+    end
+else
+    -- The hooks below add compatibility with my playerscaling library, if you end up using both.
+    -- Prevent players from beginning scaling if they are in a wall
+    hook.Add("playerscaling_preventscale", "wallwalking_preventscale", function(ply)
+        if wallwalking and wallwalking[ply] then
+            return true, "Failed to scale: Player is currently wallwalking"
+        end
+    end)
+
+    -- Pause player scaling while wallwalking takes place
+    hook.Add("playerscaling_pausescale", "wallwalking_pausescale", function(ply)
+        if wallwalking and wallwalking[ply] then
+            return true
+        end
+    end)
 end
